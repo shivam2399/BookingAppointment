@@ -9,5 +9,13 @@ function saveToLocalStorage(event) {
         email,
     };
     localStorage.setItem(name, JSON.stringify(user));
-    
+    showNewUserOnScreen(user);
 }
+
+function showNewUserOnScreen(user) {
+    const parentNode = document.getElementById('listOfUsers');
+    const childHTML = `<li> ${user.name} ${user.email} </li>`;
+
+    parentNode.innerHTML += childHTML;
+}
+
