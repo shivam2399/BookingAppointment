@@ -4,4 +4,10 @@ function saveToLocalStorage(event) {
     const email = document.getElementById('email').value;
     localStorage.setItem('name', name);
     localStorage.setItem('email', email);
+    const user = {
+        name,
+        email,
+    };
+    localStorage.setItem('userDetails', JSON.stringify(user));
+    
 }
