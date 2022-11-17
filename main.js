@@ -8,6 +8,6 @@ function saveToLocalStorage(event) {
         name,
         email,
     };
-    localStorage.setItem('userDetails', JSON.stringify(user));
+    localStorage.setItem(name, JSON.stringify(user));
     
 }
