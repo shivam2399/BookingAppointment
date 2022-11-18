@@ -19,3 +19,14 @@ function showNewUserOnScreen(user) {
     parentNode.innerHTML += childHTML;
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    Object.keys(localStorage).forEach((key) => {
+
+
+
+        stringifiedDetailsOfPeople = localStorage.getItem(key);
+        detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
+        showNewUserOnScreen(detailsOfPeople);
+        
+        });
+})
