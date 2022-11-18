@@ -8,7 +8,7 @@ function saveToLocalStorage(event) {
         name,
         email,
     };
-    localStorage.setItem(name, JSON.stringify(user));
+    localStorage.setItem(email, JSON.stringify(user));
     showNewUserOnScreen(user);
 }
 
@@ -27,22 +27,32 @@ document.addEventListener('DOMContentLoaded', function() {
 function showNewUserOnScreen(user) {
     const parentNode = document.getElementById('listOfUsers');
     const childHTML = `<li id=$(user.name)> ${user.name} - ${user.email} 
-                            <button onclick=deleteUser('${user.name}')> Delete </button>
+                            <button onclick=deleteUser('${user.email}')> Delete </button>
+                            <button onclick=editUser('${user.email}','${user.name}')> Edit</button>
                         </li>`;
     
-    console.log(childHTML);
     parentNode.innerHTML += childHTML;
-    console.log(parentNode.innerHTML);
 }
 
-function deleteUser(name) {
-    localStorage.removeItem(name);
-    removeUserFromScreen(name);
+function editUser(email, name) {
+    document.getElementById('email').value = email;
+    document.getElementById('name').value = name;
+
+    deleteUser(email);
 }
 
-function removeUserFromScreen(name) {
+function deleteUser(email) {
+    localStorage.removeItem(email);
+    removeUserFromScreen(email);
+}
+
+function removeUserFromScreen(email){
     const parentNode = document.getElementById('listOfUsers');
-    const childNodeToBeDeleted = document.getElementById(name);
-    parentNode.removeChild(childNodeToBeDeleted);
+    const childNodeToBeDeleted = document.getElementById(email);
+    if(childNodeToBeDeleted) {
+        parentNode.removeChild(childNodeToBeDeleted);
+    }
 }
+
+
 
