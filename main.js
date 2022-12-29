@@ -1,15 +1,29 @@
+// const { default: axios } = require("axios");
+
+const { default: axios } = require("axios");
+
+ 
+
 function saveToLocalStorage(event) {
     event.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
     // localStorage.setItem('name', name);
     // localStorage.setItem('email', email);
-    const user = {
+    let user = {
         name,
         email,
     };
-    localStorage.setItem(email, JSON.stringify(user));
-    showNewUserOnScreen(user);
+    axios.post("https://crudcrud.com/api/e62d1d5fd4fc476fb08980c49cb4c494/appointmentData", user)
+       .then(response => {
+        showNewUserOnScreen(response.data);
+         console.log(response)
+       })
+       .catch(err => {
+         console.log(err)
+       })
+    // localStorage.setItem(email, JSON.stringify(user));
+    // showNewUserOnScreen(user);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -22,11 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
         showNewUserOnScreen(detailsOfPeople);
         
         });
+    
 })
 
+
 function showNewUserOnScreen(user) {
-    const parentNode = document.getElementById('listOfUsers');
-    const childHTML = `<li id=$(user.name)> ${user.name} - ${user.email} 
+
+    let parentNode = document.getElementById('listOfUsers');
+    let childHTML = `<li id=$(user.name)> ${user.name} - ${user.email} 
                             <button onclick=deleteUser('${user.email}')> Delete </button>
                             <button onclick=editUser('${user.email}','${user.name}')> Edit</button>
                         </li>`;
@@ -47,12 +64,15 @@ function deleteUser(email) {
 }
 
 function removeUserFromScreen(email){
-    const parentNode = document.getElementById('listOfUsers');
-    const childNodeToBeDeleted = document.getElementById(email);
-    if(childNodeToBeDeleted) {
-        parentNode.removeChild(childNodeToBeDeleted);
-    }
+    let parentNode = document.getElementById('listOfUsers');
+    let childNodeToBeDeleted = document.getElementById(email);
+    // if(childNodeToBeDeleted) {
+    //     parentNode.removeChild(childNodeToBeDeleted);
+    // }
+    parentNode.removeChild(childNodeToBeDeleted);
+    
 }
+
 
 
 
