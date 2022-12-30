@@ -1,8 +1,3 @@
-// const { default: axios } = require("axios");
-
-const { default: axios } = require("axios");
-
- 
 
 function saveToLocalStorage(event) {
     event.preventDefault();
@@ -26,21 +21,27 @@ function saveToLocalStorage(event) {
     // showNewUserOnScreen(user);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    Object.keys(localStorage).forEach((key) => {
+document.addEventListener('DOMContentLoaded', () => {
+    axios.get("https://crudcrud.com/api/e62d1d5fd4fc476fb08980c49cb4c494/appointmentData")
+        .then((response) => {
+            console.log(response);
+            for(var i = 0; i < response.data.length; i++) {
+                showNewUserOnScreen(response.data[i]);
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
 
-
-        stringifiedDetailsOfPeople = localStorage.getItem(key);
-        detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
-        showNewUserOnScreen(detailsOfPeople);
-        
-        });
-    
 })
 
 
 function showNewUserOnScreen(user) {
+    document.getElementById('email').value = '';
+    document.getElementById('name').value = '';
+
+    
 
     let parentNode = document.getElementById('listOfUsers');
     let childHTML = `<li id=$(user.name)> ${user.name} - ${user.email} 
